@@ -1,0 +1,35 @@
+@use "../abstract/variable.scss" as v;
+
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+}
+
+nav{
+    font-family: "Regular";
+    background-color: black;
+    display: flex;
+    justify-content: space-between;
+    .w_logo{
+       margin: 1rem;
+    }
+    ul{
+        display: flex;
+        align-items: center;
+        a{
+            color: white;
+            margin: 0 2rem;
+            font-size: 1.5rem;
+            transition: transform 0.2s ease-in-out;
+            display: inline-block;
+            &:hover{
+                transform: scale(1.2);
+            }
+        }
+        .active{
+            color: v.$thirdcolor;
+        }
+    }
+}

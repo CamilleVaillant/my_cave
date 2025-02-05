@@ -2,16 +2,40 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}My Cave{% endblock %}</title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+        {{ encore_entry_link_tags('app') }}
+        {{ encore_entry_script_tags('app') }}
         {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
         {% endblock %}
 
         {% block javascripts %}
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
+           
         {% endblock %}
     </head>
     <body>
+
+        <nav>
+            <ul>
+                {% if not is_granted('ROLE_USER') %}
+				<li><a class="{% if app.request.attributes.get('_route') == "app_login" %} active {% endif %}" href={{path('app_login')}}>Se connecter</a></li>
+				<li><a class="{% if app.request.attributes.get('_route') == "app_register" %} active {% endif %}" href={{path('app_register')}}>S'inscrire</a></li>
+				{% else %}
+				<li><a href={{path('app_logout')}}>Se deconnecter</a></li>
+				{% endif %}
+            </ul>
+            <div class="w_logo"><img src={{ asset('images/local_images/logo-large-white.png')}} alt="logo site"></div>
+            <ul>
+                <li><a class="{% if app.request.attributes.get('_route') == "app_home" %} active {% endif %}" href="{{ path("app_home") }}">Accueil</a></li>
+                <li><a class="{% if app.request.attributes.get('_route') == "app_wine_cave" %} active {% endif %}" href="{{ path("app_wine_cave") }}">Ma Cave</a></li>
+                {% if is_granted("ROLE_ADMIN") %}
+                    <li><a href="{{ path("app_admin") }}">Admin</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+
         {% block body %}{% endblock %}
     </body>
 </html>

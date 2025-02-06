@@ -33,3 +33,27 @@ nav{
         }
     }
 }
+
+footer{
+    font-family: "Regular";
+    background-color: v.$primary-color;
+    display: flex;
+    justify-content: space-between;
+    div{
+        padding-top: 1rem;
+    }
+    ul{
+        padding-top: 1rem;
+        li{
+            margin: 0.5rem;
+            a{
+                color: white;
+            }
+            p{
+                color: white;
+            }
+        }
+    }
+
+
+}

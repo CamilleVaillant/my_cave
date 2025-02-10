@@ -21,24 +21,25 @@ class WineType extends AbstractType
             ->add('name')
             ->add('year')
             ->add('body')
-            ->add('imageName')
-            ->add('updatedAt', null, [
-                'widget' => 'single_text'
-            ])
+            // ->add('imageName')
+            // ->add('updatedAt', null, [
+                // 'widget' => 'single_text'
+            // ])
             ->add('region', EntityType::class, [
                 'class' => region::class,
-                'choice_label' => 'id',
+                'choice_label' => 'name',
             ])
             ->add('cepages', EntityType::class, [
                 'class' => Cepage::class,
-                'choice_label' => 'id',
+                'choice_label' => 'name',
                 'multiple' => true,
+                'expanded' => true,
             ])
-            ->add('caves', EntityType::class, [
-                'class' => Cave::class,
-                'choice_label' => 'id',
-                'multiple' => true,
-            ])
+            // ->add('caves', EntityType::class, [
+            //     'class' => Cave::class,
+            //     'choice_label' => 'id',
+            //     'multiple' => true,
+            // ])
             ->add('imageFile', FileType::class, [
                 'required' => false,
                 'mapped' => true,

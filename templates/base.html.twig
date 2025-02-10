@@ -28,10 +28,10 @@
             </ul>
             <div class="w_logo"><img src={{ asset('images/local_images/logo-large-white.png')}} alt="logo site"></div>
             <ul>
-                <li><a class="{% if app.request.attributes.get('_route') == "app_home" %} active {% endif %}" href="{{ path("app_home") }}">Accueil</a></li>
+                <li><a class="{% if app.request.attributes.get('_route') == "app_home" %} active {% endif %}" href="{{ path('app_home') }}">Accueil</a></li>
                 <li><a class="{% if app.request.attributes.get('_route') == "app_wine_cave" %} active {% endif %}" href="{{ path("app_wine_cave") }}">Ma Cave</a></li>
                 {% if is_granted("ROLE_ADMIN") %}
-                    <li><a href="{{ path("app_admin") }}">Admin</a></li>
+                    <li><a href={{ path('admin') }}>Admin</a></li>
                 {% endif %}
             </ul>
         </nav>
@@ -39,7 +39,7 @@
         {% block body %}{% endblock %}
 
         <footer>
-            <div class="b_logo"><img src={{ ('images/local_images/logo-large.png')}} alt="logo site"></div>
+            <div class="b_logo"><img src={{ asset('images/local_images/logo-large.png')}} alt="logo site"></div>
             <ul>
                 <li><a href="#">📜 Mentions légales</a></li>
                 <li><a href="#">🔐 Politique de confidentialité</a></li>

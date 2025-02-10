@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello WineCaveController!{% endblock %}
+
+{% block body %}
+    <div id="filter-button" class="filter">
+    </div>
+
+    <h1> {{ isModification ? 'Modifier une bouteille' :  'Ajouter une bouteille' }}</h1>
+
+	{{form_start(wineForm)}}
+	    {{form_widget(wineForm)}}
+	    <button>{{ isModification ? 'Modifier' :  'Ajouter' }}</button>
+	{{form_end(wineForm)}}
+{% endblock %}

@@ -1,0 +1,8 @@
+@use "../abstract/variable.scss" as v;
+
+#cave{
+    background-image: url(/public/images/local_images/Gruaud-Larose-2011-photo-C-Goussard_-24-1.jpg);
+    background-position: center;
+    background-size: cover;
+    height: 150vh;
+}

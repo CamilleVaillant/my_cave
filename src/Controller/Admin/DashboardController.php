@@ -3,7 +3,8 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Wine;
-use Symfony\Component\Routing\Route;
+// use Symfony\Component\Routing\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\Response;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
@@ -11,7 +12,8 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 use EasyCorp\Bundle\EasyAdminBundle\Attribute\AdminDashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 
-#[AdminDashboard(routePath: '/admin', routeName: 'admin')]
+
+
 class DashboardController extends AbstractDashboardController
 {
     #[IsGranted('ROLE_ADMIN')]

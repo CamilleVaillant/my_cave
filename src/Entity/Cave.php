@@ -21,6 +21,9 @@ class Cave
     #[ORM\ManyToMany(targetEntity: Wine::class, inversedBy: 'caves')]
     private Collection $Wine;
 
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    private ?User $user = null;
+
     public function __construct()
     {
         $this->Wine = new ArrayCollection();
@@ -51,6 +54,18 @@ class Cave
     public function removeWine(Wine $wine): static
     {
         $this->Wine->removeElement($wine);
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }

@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Wine;
 use App\Form\WineType;
 use App\Repository\CaveRepository;
+use App\Repository\WineRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,11 +14,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 final class WineCaveController extends AbstractController{
     #[Route('/wine/cave', name: 'app_wine_cave')]
-    public function index(CaveRepository $repository): Response
+    public function index(WineRepository $repository): Response
     {
-        $cave = $repository->findAll();
+        $wine = $repository->findAll();
         return $this->render('wine_cave/index.html.twig', [
-            'caves' => $cave,
+            'caves' => $wine,
         ]);
     }
 
@@ -49,7 +50,7 @@ final class WineCaveController extends AbstractController{
             return $this->redirectToRoute('app_home');
         }
 
-        return $this->render('wine/addupdate.html.twig', [
+        return $this->render('wine_cave/addupdate.html.twig', [
             'wineForm' => $form->createView(), //envoie du formulaire en VUE
             'isModification' => $wine->getId() !== null //Envoie d'un variable pour définir si on est en Modif ou Créa
         ]);
@@ -69,4 +70,10 @@ final class WineCaveController extends AbstractController{
 
         }
     }
+
+    // #[Route('/wine/', name: 'app_filter')]
+    // public function filter(WineRepository $repository, Request $request): Response
+    // {
+    //     $filter = $request->get('filter', 'all');
+    // }
 }

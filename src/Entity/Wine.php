@@ -29,7 +29,7 @@ class Wine
     private ?string $body = null;
 
     #[ORM\ManyToOne(inversedBy: 'wines')]
-    private ?region $region = null;
+    private ?Region $region = null;
 
     /**
      * @var Collection<int, Cepage>
@@ -99,12 +99,12 @@ class Wine
         return $this;
     }
 
-    public function getRegion(): ?region
+    public function getRegion(): ?Region
     {
         return $this->region;
     }
 
-    public function setRegion(?region $region): static
+    public function setRegion(?Region $region): static
     {
         $this->region = $region;
 
@@ -187,5 +187,10 @@ class Wine
     public function getImageName(): ?string
     {
         return $this->imageName;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->updatedAt;
     }
 }

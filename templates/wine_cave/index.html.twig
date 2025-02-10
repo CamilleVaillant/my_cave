@@ -3,5 +3,24 @@
 {% block title %}Hello WineCaveController!{% endblock %}
 
 {% block body %}
-
+    <main id="cave">
+            <a href="{{ path(wine is defined and wine.id is not null ? 'modify_wine' : 'add_wine', wine is defined ? {'id': wine.id} : {}) }}">
+            {{ wine is defined and wine.id is not null ? 'Modifier' : 'Ajouter' }}
+            </a>
+            {% for wine in caves %}
+                <article>
+                    <div>
+                        <div>
+                            <img src={{asset('uploads/images/' ~ wine.imageName )}} alt="image Bouteille">
+                            <h2>{{wine.name}}</h2>
+                            <p>{{wine.year}}</p>
+                            <p>{% for cepages in wine.cepages %}
+                                    {{cepages.name}}
+                                {% endfor %}
+                            </p>            
+                        </div>
+                    </div>
+                </article>
+            {% endfor %}
+    </main>        
 {% endblock %}

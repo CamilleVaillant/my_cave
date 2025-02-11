@@ -2,10 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Cave;
 use App\Entity\User;
+use App\Entity\Wine;
 use App\Form\UserType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -57,6 +60,10 @@ class SecurityController extends AbstractController
             $user->setPassword(
                 $passwordEncoder->hashPassword($user,$form->get('password')->getData())
             );
+
+            $cave = new Cave();
+            $cave->setUser($user);
+            $entityManager->persist($cave);
             // Persistance des données
             $entityManager->persist($user);
             // Envoi en BDD
@@ -70,4 +77,6 @@ class SecurityController extends AbstractController
         ]);
         
     }
+
+   
 }

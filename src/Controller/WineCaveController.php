@@ -10,6 +10,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 final class WineCaveController extends AbstractController{
@@ -22,6 +23,7 @@ final class WineCaveController extends AbstractController{
         ]);
     }
 
+    // #[IsGranted('ROLE_ADMIN')]
     #[Route('/wine/{id}', name: 'modify_wine')]
     #[Route('/wine', name: 'add_wine')]
     public function change(Wine $wine = null, Request $request, EntityManagerInterface $entityManager): Response

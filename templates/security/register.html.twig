@@ -4,11 +4,13 @@
 
 {% block body %}
 
-	
-	<h1> S'incrire</h1>
+	<main id="register">
+			<h1> S'incrire</h1>
 
-	{{form_start(userForm)}}
-	    {{form_widget(userForm)}}
-	    <button>Valider</button>
-	{{form_start(userForm)}}
+			{{form_start(userForm)}}
+				{{form_widget(userForm)}}
+				<button>Valider</button>
+			{{form_start(userForm)}}
+	</main>
+
 {% endblock %}

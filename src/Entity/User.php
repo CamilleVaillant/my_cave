@@ -37,6 +37,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $birth = null;
 
+    #[ORM\OneToOne(mappedBy: 'user', targetEntity: Cave::class, cascade: ['persist', 'remove'])]
+    private ?Cave $cave = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -132,6 +135,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->birth = $birth;
 
+        return $this;
+    }
+
+    public function getCave(): ?Cave
+    {
+        return $this->cave;
+    }
+
+    public function setCave(?Cave $cave): static
+    {
+        $this->cave = $cave;
+
+        if ($cave !==null && $cave->getUser() !== $this){
+            $cave->setUser($this);
+        }
         return $this;
     }
 }

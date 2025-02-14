@@ -78,4 +78,29 @@ final class WineCaveController extends AbstractController{
     // {
     //     $filter = $request->get('filter', 'all');
     // }
+    #[Route('/caves', name: 'user_caves')]
+    public function listCaves(CaveRepository $caveRepository): Response
+    {
+        // Récupérer toutes les caves des utilisateurs
+        $caves = $caveRepository->findAll();
+
+        return $this->render('wine_cave/user_caves.html.twig', [
+            'caves' => $caves,
+        ]);
+    }
+
+    #[Route('/cave/{id}', name: 'view_cave')]
+    public function viewCave(int $id, CaveRepository $caveRepository): Response
+    {
+        $cave = $caveRepository->find($id);
+
+        if (!$cave) {
+            throw $this->createNotFoundException("Cave non trouvée.");
+        }
+
+        return $this->render('wine_cave/view_cave.html.twig', [
+            'cave' => $cave,
+        ]);
+    }
+
 }

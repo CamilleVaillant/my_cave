@@ -4,37 +4,64 @@
 
 {% block body %}
     <main id="cave">
-            {% if is_granted("ROLE_ADMIN") %}
-            <a href="{{ path(wine is defined and wine.id is not null ? 'modify_wine' : 'add_wine', wine is defined ? {'id': wine.id} : {}) }}">
-            {{ wine is defined and wine.id is not null ? 'Modifier' : 'Ajouter' }}</a>
-            {% endif %}
+           
+            
             {% for wine in caves %}
-                <article class="bottle">
-                    <div class="card">
-                        <div class="b-cave">
-                            <img src={{asset('uploads/images/' ~ wine.imageName )}} alt="image Bouteille">
-                            <h2>{{wine.name}}</h2>
-                        </div>    
-                        <p>{{wine.year}}</p>
-                        <p>{% for cepages in wine.cepages %}
-                                {{cepages.name}}
-                            {% endfor %}
-                        </p>
-                        <p>{{wine.region.name}}</p>
-                        <p>{{ wine.region.country.name }}</p>            
-                    </div>
-                    {% if is_granted("ROLE_USER")%}
-                        <a href="">Ajouter à Ma Cave</a> 
-                    {% endif %}
-                    {% if is_granted("ROLE_ADMIN") %}
-                        <a href={{path('modify_wine',{'id':wine.id})}}>Modifier</a>
-                        <form method="POST" onsubmit="return confirm('Confirmer la supression?')" action="{{ path('delete_wine',{'id': wine.id})}}">
-                            <input type="hidden" name="_method" value="delete">
-                            <input type="hidden" name="_token" value="{{csrf_token('SUP' ~ wine.id)}}">
-                            <button class="btn_suppr">Supprimer</button>
-                        </form>
-                    {% endif %}
-                </article>
+                <div class="see">
+                    <article class="bottle">
+                        <div class="card">
+                            <div class="b-cave">
+                                <img src={{asset('uploads/images/' ~ wine.imageName )}} alt="image Bouteille">
+                                <h2>{{wine.name}}</h2>
+                            </div>    
+                            <p>{{wine.year}}</p>
+                            <p>{% for cepages in wine.cepages %}
+                                    {{cepages.name}}
+                                {% endfor %}
+                            </p>
+                            <p>{{wine.region.name}}</p>
+                            <p>{{ wine.region.country.name }}</p>
+                            <!-- Description courte -->
+                            <p id="wine-description-{{ wine.id }}">
+                            {{ wine.body|slice(0, 100) }}... 
+                            <button onclick="toggleDescription({{ wine.id }})">Voir plus</button>
+                            </p>
+
+                        <!-- Description complète -->
+                            <p id="wine-description-full-{{ wine.id }}" style="display:none;">
+                            {{ wine.body }}
+                            <button onclick="toggleDescription({{ wine.id }})">Voir moins</button>
+                            </p>         
+                        </div>
+                        {% if is_granted("ROLE_USER")%}
+                            <a href={{path('add_wine_to_cave', {'id': wine.id})}}>Ajouter à Ma Cave</a> 
+                        {% endif %}
+                        {% if is_granted("ROLE_ADMIN") %}
+                            <a href={{path('modify_wine',{'id':wine.id})}}>Modifier</a>
+                            <form method="POST" onsubmit="return confirm('Confirmer la supression?')" action="{{ path('delete_wine',{'id': wine.id})}}">
+                                <input type="hidden" name="_method" value="delete">
+                                <input type="hidden" name="_token" value="{{csrf_token('SUP' ~ wine.id)}}">
+                                <button class="btn_suppr">Supprimer</button>
+                            </form>
+                        {% endif %}
+                    </article>
+                </div>    
             {% endfor %}
-    </main>        
+    </main> 
+     <script>
+        function toggleDescription(wineId) {
+            var fullDescription = document.getElementById('wine-description-full-' + wineId);
+            var shortDescription = document.getElementById('wine-description-' + wineId);
+            
+            if (fullDescription.style.display === 'none') {
+                fullDescription.style.display = 'block';
+                shortDescription.style.display = 'none';
+            } else {
+                fullDescription.style.display = 'none';
+                shortDescription.style.display = 'block';
+            }
+        }
+    </script>
+    
+
 {% endblock %}

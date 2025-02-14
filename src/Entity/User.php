@@ -147,9 +147,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->cave = $cave;
 
-        if ($cave !==null && $cave->getUser() !== $this){
-            $cave->setUser($this);
-        }
+        // if ($cave !==null && $cave->getUser() !== $this){
+        //     $cave->setUser($this);
+        // }
         return $this;
     }
 }

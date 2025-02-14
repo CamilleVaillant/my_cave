@@ -28,8 +28,15 @@
             </ul>
             <div class="w_logo"><img src={{ asset('images/local_images/logo-large-white.png')}} alt="logo site"></div>
             <ul>
+                {% if is_granted("ROLE_ADMIN") %}
+                <li><a class="btn" href="{{ path(wine is defined and wine.id is not null ? 'modify_wine' : 'add_wine', wine is defined ? {'id': wine.id} : {}) }}">
+                {{ wine is defined and wine.id is not null ? 'Modifier' : 'Ajouter' }}</a></li>
+                {% endif %}
                 <li><a class="{% if app.request.attributes.get('_route') == "app_home" %} active {% endif %}" href="{{ path('app_home') }}">Accueil</a></li>
+                <li><a class="{% if app.request.attributes.get('_route') == 'user_caves' %} active {% endif %}" href="{{ path('user_caves') }}">Les Caves</a></li>
                 <li><a class="{% if app.request.attributes.get('_route') == "app_wine_cave" %} active {% endif %}" href="{{ path("app_wine_cave") }}">La Cave</a></li>
+                <li><a class="{% if app.request.attributes.get('_route') == "app_cave" %} active {% endif %}" href="{{ path("app_cave") }}">Ma Cave</a></li>
+
                 {% if is_granted("ROLE_ADMIN") %}
                     <li><a href={{ path('admin') }}>Admin</a></li>
                 {% endif %}

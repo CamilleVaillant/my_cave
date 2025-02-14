@@ -1,20 +1,65 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello CaveController!{% endblock %}
+{% block title %}Ma Cave{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <main id="cave">
+        
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+        {% if cave is empty %}
+            <p>Votre cave est vide.</p>
+        {% else %}
+            {% for wine in cave.wine %}
+                <article class="bottle">
+                    <div class="card">
+                        <img src="{{ asset('uploads/images/' ~ wine.imageName) }}" alt="Image de {{ wine.name }}">
+                        <h2>{{ wine.name }}</h2>
+                        <p>Année : {{ wine.year }}</p>
+                        <p>Cépages : 
+                            {% for cepage in wine.cepages %}
+                                {{ cepage.name }}{% if not loop.last %}, {% endif %}
+                            {% endfor %}
+                        </p>
+                        <p>Région : {{ wine.region.name }}, {{ wine.region.country.name }}</p>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>C:/Users/cpvai/symphonie projet/my-cave/src/Controller/CaveController.php</code></li>
-        <li>Your template at <code>C:/Users/cpvai/symphonie projet/my-cave/templates/cave/index.html.twig</code></li>
-    </ul>
-</div>
+                        <!-- Description courte -->
+                        <p id="wine-description-{{ wine.id }}">
+                            {{ wine.body|slice(0, 100) }}{% if wine.body|length > 100 %}...{% endif %}
+                            {% if wine.body|length > 100 %}
+                                <button class="toggle-btn" onclick="toggleDescription({{ wine.id }})" aria-expanded="false">Voir plus</button>
+                            {% endif %}
+                        </p>
+
+                        <!-- Description complète -->
+                        <p id="wine-description-full-{{ wine.id }}" hidden>
+                            {{ wine.body }}
+                            <button class="toggle-btn" onclick="toggleDescription({{ wine.id }})" aria-expanded="true">Voir moins</button>
+                        </p>         
+                    </div>
+                    
+                    <!-- Bouton pour supprimer un vin de la cave -->
+                    <a href="{{ path('remove_wine_from_cave', { 'id': wine.id }) }}" class="btn">Retirer de ma cave</a>
+                </article>
+            {% endfor %}
+        {% endif %}
+    </main>
+
+    <!-- Script pour gérer Voir Plus / Voir Moins -->
+    <script>
+        function toggleDescription(wineId) {
+            var fullDescription = document.getElementById('wine-description-full-' + wineId);
+            var shortDescription = document.getElementById('wine-description-' + wineId);
+            var button = shortDescription.querySelector("button") || fullDescription.querySelector("button");
+
+            if (fullDescription.hidden) {
+                fullDescription.hidden = false;
+                shortDescription.hidden = true;
+                button.textContent = "Voir moins";
+            } else {
+                fullDescription.hidden = true;
+                shortDescription.hidden = false;
+                button.textContent = "Voir plus";
+            }
+        }
+    </script>
 {% endblock %}

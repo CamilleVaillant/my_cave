@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Cave de {{ cave.user.username }}{% endblock %}
+
+{% block body %}
+    <main id="cave-details">
+        <h1>Cave de {{ cave.user.username }}</h1>
+        <a href="{{ path('user_caves') }}" class="btn">Retour à la liste des caves</a>
+        {% if cave.wine is empty %}
+            <p>Cette cave est vide.</p>
+        {% else %}
+            <div class="wine-list">
+                {% for wine in cave.wine %}
+                    <article class="bottle">
+                        <img src="{{ asset('uploads/images/' ~ wine.imageName) }}" alt="Image de {{ wine.name }}">
+                        <h2>{{ wine.name }}</h2>
+                        <p>Année : {{ wine.year }}</p>
+                        <p>Cépages : 
+                            {% for cepage in wine.cepages %}
+                                {{ cepage.name }}{% if not loop.last %}, {% endif %}
+                            {% endfor %}
+                        </p>
+                        <p>Région : {{ wine.region.name }}, {{ wine.region.country.name }}</p>
+                    </article>
+                {% endfor %}
+            </div>
+        {% endif %}
+        
+        
+    </main>
+{% endblock %}

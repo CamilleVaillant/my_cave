@@ -34,7 +34,7 @@ class Wine
     /**
      * @var Collection<int, Cepage>
      */
-    #[ORM\ManyToMany(targetEntity: Cepage::class, mappedBy: 'wine')]
+    #[ORM\ManyToMany(targetEntity: Cepage::class, inversedBy: 'wine')]
     private Collection $cepages;
 
     /**
@@ -123,7 +123,6 @@ class Wine
     {
         if (!$this->cepages->contains($cepage)) {
             $this->cepages->add($cepage);
-            $cepage->addWine($this);
         }
 
         return $this;
@@ -131,10 +130,8 @@ class Wine
 
     public function removeCepage(Cepage $cepage): static
     {
-        if ($this->cepages->removeElement($cepage)) {
-            $cepage->removeWine($this);
-        }
-
+        $this->cepages->removeElement($cepage);
+            
         return $this;
     }
 

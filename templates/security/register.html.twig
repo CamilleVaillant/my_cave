@@ -5,12 +5,34 @@
 {% block body %}
 
 	<main id="register">
-			<h1> S'incrire</h1>
-
+		<h1> S'incrire</h1>
+		<div class="reg_form">
 			{{form_start(userForm)}}
+				{{ form_row(userForm.username, {
+					'label': 'Nom',
+					'label_attr': {'class': 'form-label'},
+					'attr': {'placeholder': 'Entrez votre Nom', 'class': 'form-input'}
+				}) }}
+				{{ form_row(userForm.password, {
+					'label': 'Mot de passe',
+					'label_attr': {'class': 'form-label'},
+					'attr': {'placeholder': 'Votre mot de passe', 'class': 'form-input'}
+				}) }}
+				{{ form_row(userForm.mail, {
+					'label': 'E.mail',
+					'label_attr': {'class': 'form-label'},
+					'attr': {'placeholder': 'Entrez votre E.mail', 'class': 'form-input'}
+				}) }}
+				{{ form_row(userForm.birth, {
+					'label': 'Année de naissance',
+					'label_attr': {'class': 'form-label'},
+					'attr': {'placeholder': 'Entrez votre année de naissance', 'class': 'form-input'}
+				}) }}
 				{{form_widget(userForm)}}
 				<button>Valider</button>
 			{{form_start(userForm)}}
+		</div>
+
 	</main>
 
 {% endblock %}

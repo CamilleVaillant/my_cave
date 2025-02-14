@@ -5,14 +5,14 @@
 {% block body %}
     <main id="login">
         <h1>Connectez vous</h1>
-        <form method="post">
+        <form class="log_form" method="post">
             {% if error %}
                 <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
             {% endif %}
 
             {% if app.user %}
                 <div class="mb-3">
-                    You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+                    Vous êtes connecter en tant que {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Déconnection</a>
                 </div>
             {% endif %}
 

@@ -6,6 +6,7 @@
     background-size: cover;
     height: auto;
     display: flex;
+    justify-content: center;
     flex-wrap: wrap;
     font-family: "Regular";
     color: white;
@@ -16,7 +17,9 @@
         color: white;
     }
    
+   
 }
+
 .bottle{
     text-align: center;
     background-color: v.$primary-color;

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Form\WineFilterType;
 use App\Entity\Wine;
 use App\Form\WineType;
 use App\Repository\CaveRepository;
@@ -15,13 +16,28 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 final class WineCaveController extends AbstractController{
     #[Route('/wine/cave', name: 'app_wine_cave')]
-    public function index(WineRepository $repository): Response
-    {
-        $wine = $repository->findAll();
-        return $this->render('wine_cave/index.html.twig', [
-            'caves' => $wine,
-        ]);
+public function index(WineRepository $repository, Request $request): Response
+{
+    $form = $this->createForm(WineFilterType::class);
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+        $data = $form->getData();
+        dump($data); // Vérifier les valeurs filtrées
+        $wines = $repository->filterWines($data);
+    } else {
+        $wines = $repository->findAll();
     }
+
+    return $this->render('wine_cave/index.html.twig', [
+        'form' => $form->createView(),
+        'caves' => $wines, 
+    ]);
+}
+
+
+
+
 
     // #[IsGranted('ROLE_ADMIN')]
     #[Route('/wine/{id}', name: 'modify_wine')]
@@ -102,5 +118,8 @@ final class WineCaveController extends AbstractController{
             'cave' => $cave,
         ]);
     }
+
+    
+
 
 }

@@ -39,6 +39,7 @@ footer{
     font-family: "Regular";
     background-color: v.$primary-color;
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     div{
         padding-top: 1rem;
@@ -94,4 +95,62 @@ footer{
         margin-top: 10rem;
     }
 
+}
+/* Style pour le menu burger */
+#menu-toggle {
+    display: none;
+    cursor: pointer;
+    flex-direction: column;
+    gap: 5px;
+}
+
+#menu-toggle .bar {
+    width: 30px;
+    height: 5px;
+    background-color: #fff;
+    border-radius: 5px;
+}
+
+.nav-list {
+    display: flex;
+    gap: 20px;
+    list-style-type: none;
+}
+
+.nav-list li a {
+    text-decoration: none;
+    color: #fff;
+    padding: 10px;
+}
+
+@media (max-width: 1497px) {
+    /* Masquer le menu sur mobile */
+    .nav-list {
+        display: none;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        background-color: #333;
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /* Afficher le menu burger */
+    #menu-toggle {
+        display: flex;
+        position: absolute;
+        top: 15px;
+        right: 15px;
+    }
+
+    /* Afficher le menu lorsque le burger est activé */
+    .nav-list.active {
+        display: flex;
+    }
+
+    /* Ajout de l'effet de survol */
+    .nav-list li a:hover {
+        background-color: #555;
+    }
 }

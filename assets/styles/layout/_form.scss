@@ -180,3 +180,30 @@
         }
     }
 }
+.filter-form{
+    width: 80%;
+    height: auto;
+    background-color: v.$primary-color;
+    
+    form{
+       text-align: center;
+       margin: 1rem;
+       input{
+        margin: 1rem;
+        height: 2rem;
+        width: 300px;
+       }
+       select{
+        margin: 1rem;
+        height: 2rem;
+        width: 300px;
+       }
+       button{
+        margin: 1rem;
+        height: 2rem;
+        width: 300px;
+        cursor: pointer;
+       }
+      
+    }
+}

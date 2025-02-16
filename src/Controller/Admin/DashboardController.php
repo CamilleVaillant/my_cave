@@ -2,15 +2,23 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Wine;
+use App\Entity\User;
 // use Symfony\Component\Routing\Route;
-use Symfony\Component\Routing\Attribute\Route;
+
+
+use App\Entity\Wine;
+use App\Entity\Cepage;
+use App\Entity\Region;
+use App\Entity\Country;
+use App\Controller\Admin\CepageCrudController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Attribute\Route;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use EasyCorp\Bundle\EasyAdminBundle\Attribute\AdminDashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
+
 
 
 
@@ -52,7 +60,12 @@ class DashboardController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
-        yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
-        yield MenuItem::linkToCrud('Les Vins', 'fas fa-list', Wine::class);
+        // yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
+        yield MenuItem::linkToRoute('Quitter l\'admin', 'fa-solid fa-sign-out-alt', 'app_home');
+        yield MenuItem::linkToCrud('Les Vins', 'fa-solid fa-wine-bottle', Wine::class);
+        yield MenuItem::linkToCrud('les Cépages','fa-solid fa-leaf', Cepage::class);
+        yield MenuItem::linkToCrud('les Pays','fa-solid fa-earth-europe', Country::class);
+        yield MenuItem::linkToCrud('les Regions','fa-regular fa-map', Region::class);
+        yield MenuItem::linkToCrud('les Utilisateurs','fa-regular fa-user', User::class);
     }
 }

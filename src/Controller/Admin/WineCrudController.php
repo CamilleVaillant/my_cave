@@ -42,10 +42,15 @@ class WineCrudController extends AbstractCrudController
                     return $value ? $value->getName() : 'Aucune région'; // Affichage du nom de la région
                 })
                 ->onlyOnIndex(),
-            ArrayField::new('cepages', 'Cépages')
-                ->formatValue(function ($value) {
+            AssociationField::new('cepages', 'Cépages')
+                ->setFormTypeOptions([
+                    'by_reference'=>false,
+                    'multiple'=>true,
+                    'choise_label'=>'name',
+                ])
+                ->formatValue(function ($value,$entity) {
                     // Vérifie s'il y a des cépages, puis les formate sous forme de chaîne de texte séparée par des virgules
-                    return $value ? implode(', ', array_map(fn($cepage) => $cepage->getName(), $value)) : 'Aucun cépage'; // Affichage des noms des cépages
+                    return implode(', ', $entity->getGrapes()->map(fn($cepage) => $cepage->getName())->toArray());
                 })
                 ->onlyOnIndex(),
             ImageField::new('imageName', 'Image du vin')

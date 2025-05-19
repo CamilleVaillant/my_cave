@@ -23,7 +23,7 @@ public function index(WineRepository $repository, Request $request): Response
 
     if ($form->isSubmitted() && $form->isValid()) {
         $data = $form->getData();
-        dump($data); // Vérifier les valeurs filtrées
+        // dump($data); // Vérifier les valeurs filtrées
         $wines = $repository->filterWines($data);
     } else {
         $wines = $repository->findAll();

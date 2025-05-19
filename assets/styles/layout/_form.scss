@@ -96,7 +96,7 @@
     .reg_form{
         background-color: #88002d9c;
         margin: auto;
-        width: 50%;
+        width: 60%;
         color: white;
         font-family: "regular";
         form {
@@ -106,15 +106,16 @@
             flex-direction: column;
             label {
                 font-size: 20px;
-                padding: 8px 128px;
+                padding: 8px auto;
                 text-align: center;
+                margin-right: 1rem;
             }
 
             input {
                 text-align: center;
                 padding: 4px 16px;
-                margin: 0px 128px;
-                border-radius: 4px;
+                margin-top: 1rem;
+                // border-radius: 4px;
                 border: solid 2px black;
                 font-family: "Regular";
                 font-size: 18px;
@@ -156,14 +157,14 @@
         form {
             label {
                 font-size: 20px;
-                padding: 8px 128px;
+                // padding: 8px 128px;
                 text-align: center;
             }
 
             input {
                 text-align: center;
-                padding: 4px 16px;
-                margin: 0px 128px;
+                // padding: 4px 16px;
+                // margin: 0px 128px;
                 border-radius: 4px;
                 border: solid 2px black;
                 font-family: "Regular";
@@ -181,7 +182,7 @@
     }
 }
 .filter-form{
-    width: 80%;
+    width: 100%;
     height: auto;
     background-color: v.$primary-color;
     
